@@ -3,8 +3,12 @@
 
 #include <Windows.h>
 
+/*
 #include <d3d12.h>
 #include <dxgi1_4.h>
+*/
+
+#include <d3d10.h>
 
 #include <dinput.h>
 
@@ -12,6 +16,7 @@
 
 #include <vector>
 
+/*
 struct GlobalD3D12 {
 	ID3D12Device* device = NULL;
 
@@ -28,9 +33,16 @@ struct GlobalD3D12 {
 	HANDLE fenceEvent = NULL;
 	UINT64 fenceValue = 0;
 };
+*/
+
+struct GlobalD3D10 {
+	ID3D10Device* device = NULL;
+	IDXGISwapChain* swapChain = NULL;
+	ID3D10RenderTargetView* renderTargetView = NULL;
+};
 
 struct GlobalDInput {
-	IDirectInput8* di = NULL;
+	IDirectInput8* dinput = NULL;
 	IDirectInputDevice8* keyboard = NULL;
 	IDirectInputDevice8* mouse = NULL;
 	DIMOUSESTATE mouseState = {};
@@ -39,15 +51,14 @@ struct GlobalDInput {
 
 struct GlobalDSound {
 	IDirectSound8* dsound = NULL;
-	IDirectSoundBuffer* primaryBuffer = NULL;
-	IDirectSoundBuffer* secondaryBuffer = NULL;
 };
 
 struct GlobalData {
 	HWND hwnd = NULL;
 	bool running = true;
 
-	GlobalD3D12 d3d12 = {};
+	/* GlobalD3D12 d3d12 = {}; */
+	GlobalD3D10 d3d10 = {};
 	GlobalDInput dinput = {};
 	GlobalDSound dsound = {};
 };

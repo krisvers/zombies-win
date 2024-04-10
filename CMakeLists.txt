@@ -12,6 +12,7 @@ endif()
 project ("zombies")
 
 include_directories("include")
+link_libraries("d3d10" "dxgi")
 
 # Add source to this project's executable.
 add_executable (zombies "src/main.cpp"  "include/global.hpp")
