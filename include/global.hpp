@@ -38,7 +38,7 @@ struct GlobalD3D12 {
 struct GlobalD3D10 {
 	ID3D10Device* device = NULL;
 	IDXGISwapChain* swapChain = NULL;
-	ID3D10RenderTargetView* renderTargetView = NULL;
+	ID3D10RenderTargetView* renderTarget = NULL;
 };
 
 struct GlobalDInput {
@@ -54,6 +54,7 @@ struct GlobalDSound {
 };
 
 struct GlobalData {
+	HINSTANCE hinstance = NULL;
 	HWND hwnd = NULL;
 	bool running = true;
 
