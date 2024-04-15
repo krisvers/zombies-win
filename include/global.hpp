@@ -9,10 +9,10 @@
 */
 
 #include <d3d10.h>
-
 #include <dinput.h>
-
 #include <dsound.h>
+
+#include <jni.h>
 
 #include <vector>
 
@@ -53,6 +53,11 @@ struct GlobalDSound {
 	IDirectSound8* dsound = NULL;
 };
 
+struct GlobalJava {
+	JNIEnv* env = NULL;
+	JavaVM* jvm = NULL;
+};
+
 struct GlobalData {
 	HINSTANCE hinstance = NULL;
 	HWND hwnd = NULL;
@@ -62,6 +67,7 @@ struct GlobalData {
 	GlobalD3D10 d3d10 = {};
 	GlobalDInput dinput = {};
 	GlobalDSound dsound = {};
+	GlobalJava java = {};
 };
 
 extern GlobalData g_data;

@@ -122,6 +122,35 @@ int main() {
 		return 1;
 	}
 
+	JavaVMOption option = {};
+	option.optionString = const_cast<char*>("-Djava.class.path=scripts\\game-script.jar");
+	option.extraInfo = NULL;
+
+	JavaVMInitArgs vmArgs = {};
+	vmArgs.version = JNI_VERSION_1_8;
+	vmArgs.nOptions = 1;
+	vmArgs.options = &option;
+	vmArgs.ignoreUnrecognized = JNI_TRUE;
+
+	if (JNI_CreateJavaVM(&g_data.java.jvm, (void**)&g_data.java.env, &vmArgs) != JNI_OK) {
+		std::cout << "Failed to create Java VM" << std::endl;
+		return 1;
+	}
+
+	jclass scriptClass = g_data.java.env->FindClass("GameScript");
+	if (!scriptClass) {
+		std::cout << "Failed to find GameScript class" << std::endl;
+		return 1;
+	}
+
+	jmethodID setupMethod = g_data.java.env->GetStaticMethodID(scriptClass, "setup", "()V");
+	if (!setupMethod) {
+		std::cout << "Failed to find main method" << std::endl;
+		return 1;
+	}
+
+	g_data.java.env->CallStaticVoidMethod(scriptClass, setupMethod);
+
 	g_data.running = true;
 
 	MSG msg = {};
